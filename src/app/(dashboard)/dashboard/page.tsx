@@ -41,18 +41,24 @@ const DashboardPage = () => {
     if (reportData) {
         if (reportData[dateKeys[0]] !== null) {
             for (let i = 0; i < reportData[dateKeys[0]].kpis.length; i++) {
+                // @ts-ignore
                 if (kpis[reportData[dateKeys[0]].kpis[i].name] === undefined)
+                    // @ts-ignore
                     kpis[reportData[dateKeys[0]].kpis[i].name] = {}
 
+                // @ts-ignore
                 kpis[reportData[dateKeys[0]].kpis[i].name].startValue = reportData[dateKeys[0]].kpis[i].kpi_value
             }
         }
 
         if (reportData[dateKeys[1]] !== null) {
             for (let i = 0; i < reportData[dateKeys[1]].kpis.length; i++) {
+                // @ts-ignore
                 if (kpis[reportData[dateKeys[1]].kpis[i].name] === undefined)
+                    // @ts-ignore
                     kpis[reportData[dateKeys[1]].kpis[i].name] = {}
 
+                // @ts-ignore
                 kpis[reportData[dateKeys[1]].kpis[i].name].endValue = reportData[dateKeys[1]].kpis[i].kpi_value
             }
         }
@@ -93,6 +99,7 @@ const DashboardPage = () => {
                         <h3>Overview</h3>
                         <div className={styles.kpi}>
                             {Object.keys(kpis).map((kpiKey, index) => (
+                                // @ts-ignore
                                 <KPICard key={index} label={kpiKey} value={kpis[kpiKey].endValue ?? 0} previousValue={kpis[kpiKey].startValue ?? kpis[kpiKey].endValue ?? 0}/>
                             ))}
                         </div>
