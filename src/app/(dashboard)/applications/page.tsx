@@ -35,6 +35,7 @@ const DashboardPage = () => {
                                       transform="translate(0 20.378) rotate(-90)"></path>
                             </svg>
                         </Link>
+                        <img src={"https://www.startglobal.org/hubfs/Pink%20Polygon-2.png"} alt={"right"}/>
                     </div>
                     <div>
                         <h2>Acceleration</h2>
@@ -56,6 +57,7 @@ const DashboardPage = () => {
                                       transform="translate(0 20.378) rotate(-90)"></path>
                             </svg>
                         </Link>
+                        <img src={"https://www.startglobal.org/hubfs/Frame%201%20(1)-2.png"} alt={"right"} />
                     </div>
                 </div>
             </main>

@@ -1,6 +1,7 @@
 @import "src/app/mixins";
 
 .sidebar {
+  z-index: 2;
   font-weight: bold;
   max-width: 250px;
   width: 100%;
