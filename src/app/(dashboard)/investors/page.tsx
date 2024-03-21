@@ -2,6 +2,7 @@ import styles from './page.module.scss'
 import {Metadata} from "next";
 import PartnerCard from "@/components/molecules/PartnerCard/PartnerCard";
 import Pagination from "@/components/organisms/Pagination/Pagination";
+import {Suspense} from "react";
 
 export const metadata: Metadata = {
     title: 'Home | Start Fellowship Dashboard',
@@ -18,7 +19,9 @@ const DashboardPage = () => {
                     <PartnerCard key={index} name={"John Doe"} companyName={"PayPal X"}/>
                 ))}
             </section>
+            <Suspense>
             <Pagination totalPages={3}/>
+            </Suspense>
         </main>
     )
 }
