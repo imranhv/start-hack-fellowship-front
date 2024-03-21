@@ -1,0 +1,53 @@
+.main {
+    display: flex;
+    height: calc(100vh - 84px);
+    overflow-y: auto;
+    position: relative;
+
+    section div {
+        width: 50%;
+        padding: 20px;
+    }
+
+    h1, p {
+        text-transform: uppercase;
+        font-weight: 800;
+        line-height: 0.8 !important;
+    }
+
+    h1 + p {
+        margin-top: 30px;
+    }
+
+    h1 {
+        font-size: 6.25rem;
+        color: white;
+    }
+
+    p {
+        font-size: 2.875rem;
+        color: var(--orange);
+    }
+
+    video {
+        height: calc(100vh);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        z-index: -2;
+    }
+
+    .overlay {
+        width: 100%;
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--black);
+        opacity: 0.5;
+    }
+}

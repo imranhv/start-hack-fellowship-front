@@ -1,0 +1,66 @@
+@import "src/app/mixins";
+
+.sidebar {
+  font-weight: bold;
+  max-width: 250px;
+  width: 100%;
+  border-right: 1px solid white;
+  height: 100vh;
+  position: relative;
+
+  h2 {
+    color: white;
+    font-weight: 800;
+    margin: 32px 0 32px 32px;
+    font-size: 2.5rem;
+  }
+
+  ul {
+    margin: 0 48px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    li {
+      display: flex;
+
+      a {
+        font-weight: 500;
+        color: white;
+        margin: 0;
+        width: 100%;
+        padding: 16px 0 16px 32px;
+        text-decoration: none;
+      }
+
+      &:hover {
+        background-color: white;
+        cursor: pointer;
+      }
+
+      &:hover a {
+        color: var(--black);
+      }
+
+      &.active {
+        border: 1px solid white;
+        border-left: none;
+        background-color: var(--orange);
+      }
+    }
+  }
+
+  button {
+    @include button;
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    bottom: 32px;
+
+    &:hover {
+
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import "src/app/mixins";
+
+.card {
+  background-color: white;
+  width: 100%;
+  border-radius: 32px;
+  display: flex;
+  padding: 40px 20px;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 100px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  h4, p {
+    color: var(--black);
+    margin: 0;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    @include button;
+    border-color: var(--black);
+    color: var(--black);
+
+    &:hover {
+      background-color: var(--black);
+      color: white;
+    }
+  }
+
+
+}

@@ -1,0 +1,76 @@
+@import "src/app/mixins";
+
+.form {
+  width: 50%;
+
+  section {
+    padding: 0 !important;
+  }
+
+  section h3 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li:not(:last-of-type),  {
+      display: flex;
+      gap: 16px;
+    }
+
+    li + li {
+      margin-top: 16px;
+    }
+  }
+
+  section + div {
+    margin-top: 60px;
+  }
+
+  h3 + ul {
+    margin-top: 30px;
+  }
+
+  & > div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end !important;
+    gap: 32px;
+
+    button, a {
+      @include button;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+
+      color: var(--black);
+      border-color: var(--black);
+
+      svg {
+        fill: var(--black);
+      }
+
+      &:hover {
+        color: white;
+        border-color: white;
+        background-color: var(--black);
+
+        svg {
+          fill: white;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .form {
+    width: 100%;
+  }
+}

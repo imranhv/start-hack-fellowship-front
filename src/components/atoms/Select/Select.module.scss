@@ -1,0 +1,77 @@
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.select {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  padding: 12px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  border: 1px solid var(--black);
+  height: 50px;
+
+  label {
+    color: var(--black);
+    padding: 0 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .chevronStyle {
+    padding: 0 16px;
+  }
+
+  ul {
+    position: absolute;
+    top: calc(100% + 8px);
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 8px;
+    z-index: 2;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  li + li {
+    margin: 0 !important;
+  }
+
+  ul li {
+    color: var(--orange);
+    text-align: left;
+    padding: 12px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(orange, 0.5);
+      font-weight: 500;
+    }
+  }
+
+  .selected {
+    background-color: rgba(orange, 0.2);
+    font-weight: 500;
+
+    &:hover {
+      background-color: rgba(orange, 0.2);
+    }
+  }
+
+  input:checked ~ ul {
+    transform: scale(1, 1);
+  }
+}

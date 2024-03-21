@@ -1,33 +1,54 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --black: #010100;
+    --orange: #FF6100;
+    --redish: rgba(70, 0, 4, 1)
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+    box-sizing: border-box;
+    font-family: Avenir, sans-serif;
+
+    h1, h2, h3 p {
+        margin: 0;
+    }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    background-color: var(--black);
+    margin: 0;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.container {
+    max-width: 1300px;
+    margin: auto;
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url('/fonts/AvenirNextLTPro-Regular.otf') format('opentype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url('/fonts/AvenirNextLTPro-Medium.otf') format('opentype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url('/fonts/AvenirNextLTPro-Bold.otf') format('opentype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url('/fonts/AvenirNextLTPro-Heavy.otf') format('opentype');
+    font-weight: 800;
+}
+
+@media only screen and (max-width: 992px) {
+    .container {
+        padding-inline: 24px;
+    }
 }
