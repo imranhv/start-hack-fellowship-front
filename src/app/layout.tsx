@@ -9,7 +9,7 @@ export default function RootLayout({
     return (
         <html lang="en">
         <head>
-            <title>Login into SF Hub | Start Fellowship</title>
+            <title>SF Hub | Start Fellowship</title>
             <meta name="description" content={"Login into Start Fellowship Hub and continue your startup journey."}/>
         </head>
         <body>

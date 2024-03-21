@@ -20,7 +20,16 @@
     color: var(--black);
   }
 
+  span {
+    font-size: 0.75rem;
+    color: gray;
+  }
+
   h4 + p {
     margin-top: 16px;
+  }
+
+  p + span {
+    margin-top: 8px;
   }
 }
