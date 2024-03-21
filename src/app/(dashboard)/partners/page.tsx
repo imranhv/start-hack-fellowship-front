@@ -7,7 +7,7 @@ import Tab from "@/components/atoms/Tab/Tab";
 import Tabs from "@/components/molecules/Tabs/Tabs";
 
 export const metadata: Metadata = {
-    title: 'Home | Start Fellowship Dashboard',
+    title: 'Partners | Start Fellowship Dashboard',
     description: 'Access personalized resources, track your progress, and connect with peers on your fellowship journey.',
 }
 

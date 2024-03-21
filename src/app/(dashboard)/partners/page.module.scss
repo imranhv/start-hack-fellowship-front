@@ -2,6 +2,9 @@
   padding: 40px;
   width: 100%;
   background-color: white;
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
 
   h1, p {
     margin: 0;

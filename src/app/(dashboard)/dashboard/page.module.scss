@@ -1,7 +1,10 @@
 .main {
   padding: 40px;
   background-color: white;
-  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
+  width: 100%;
 
   h1, p {
     margin: 0;
@@ -14,15 +17,33 @@
     font-size: 2.5rem;
   }
 
+  h3 {
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.5rem;
+  }
+
   h1 + p {
     margin-top: 20px;
   }
 
+  section:nth-child(2) {
+    margin-top: 48px;
+  }
+
   .kpi {
-    margin-top: 32px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+
+  section:last-of-type {
+    margin-top: 64px;
+  }
+
+  .graph {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
 }

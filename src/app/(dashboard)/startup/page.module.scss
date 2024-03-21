@@ -1,14 +1,16 @@
 .main {
   padding: 40px;
+  background-color: white;
+  max-height: 100vh;
+  min-height: 100vh;
+  width: 100%;
 
-  h1, p {
-    color: white;
+  h1 {
     margin: 0;
     line-height: 0.8 !important;
   }
 
   h1 {
-    color: white;
     text-transform: uppercase;
     font-weight: 800;
     font-size: 2.5rem;

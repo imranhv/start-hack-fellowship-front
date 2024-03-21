@@ -1,6 +1,6 @@
 import styles from './page.module.scss'
 import {Metadata} from "next";
-import ApplyForm from "@/components/molecules/Form/ApplyForm";
+import ApplyForm from "@/components/molecules/ApplyForm/ApplyForm";
 import Link from "next/link";
 
 export const metadata: Metadata = {
