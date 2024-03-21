@@ -23,6 +23,12 @@
     text-align: justify;
   }
 
+  .buttonsWrapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
   section:first-child div + p {
     margin-top: 30px;
   }

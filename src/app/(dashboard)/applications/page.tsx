@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: 'Home | Start Fellowship Dashboard',
+    title: 'Application Options | Start Fellowship Dashboard',
     description: 'Access personalized resources, track your progress, and connect with peers on your fellowship journey.',
 }
 

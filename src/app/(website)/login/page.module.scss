@@ -1,0 +1,55 @@
+@import "src/app/mixins";
+
+.main {
+  background-color: white;
+  height: calc(100vh - 84px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > div {
+    min-width: 400px;
+    margin: auto;
+  }
+
+  h1 {
+    line-height: 0.8 !important;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  h1 + section {
+    margin-top: 32px;
+  }
+
+  form {
+    width: 100%;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    button {
+      margin-top: 32px;
+      width: 100%;
+      @include button;
+      color: white;
+      border-color: var(--black);
+      background-color: #FF6100;
+
+      &:hover {
+        color: white;
+        border-color: white;
+        background-color: var(--black);
+      }
+    }
+  }
+}

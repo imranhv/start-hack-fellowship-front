@@ -2,7 +2,7 @@
 
 import styles from './Sidebar.module.scss'
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 const SIDEBAR_MENU_OPTIONS = [
     {pathname: "/dashboard", label: "Dashboard", roles: []},
@@ -15,6 +15,7 @@ const SIDEBAR_MENU_OPTIONS = [
 ]
 const Sidebar = () => {
     const pathname = usePathname()
+    const router = useRouter()
 
     return (
         <div className={styles.sidebar}>
@@ -31,7 +32,7 @@ const Sidebar = () => {
                     ))
                 }
             </ul>
-            <button>Logout</button>
+            <button onClick={() => {router.push("/")}}>Logout</button>
         </div>
     );
 };

@@ -1,5 +1,11 @@
 import styles from './page.module.scss'
 import Input from "@/components/atoms/Input/Input";
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: 'Profile | Start Fellowship Dashboard',
+    description: 'Access personalized resources, track your progress, and connect with peers on your fellowship journey.',
+}
 
 const ProfiledPage = () => {
     return(
