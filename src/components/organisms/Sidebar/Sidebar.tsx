@@ -3,6 +3,7 @@
 import styles from './Sidebar.module.scss'
 import Link from "next/link";
 import {usePathname, useRouter} from "next/navigation";
+import {logout} from "@/api/userAPI";
 
 const SIDEBAR_MENU_OPTIONS = [
     {pathname: "/dashboard", label: "Dashboard", roles: []},
@@ -32,7 +33,13 @@ const Sidebar = () => {
                     ))
                 }
             </ul>
-            <button onClick={() => {router.push("/")}}>Logout</button>
+            <button onClick={async () => {
+                const result = await logout()
+                if (result) {
+                    router.push("/")
+                }
+            }}>Logout
+            </button>
         </div>
     );
 };

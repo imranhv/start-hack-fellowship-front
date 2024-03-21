@@ -5,11 +5,9 @@ import styles from './ApplyForm.module.scss'
 import Input from "@/components/atoms/Input/Input";
 import Select from "@/components/atoms/Select/Select";
 import {OnboardForm} from "@/interfaces/onboardForm";
-import {submitOnboardForm} from "@/api/onboard";
-import {useRouter} from "next/navigation";
+import {submitOnboardForm} from "@/api/onboardAPI";
 
 const ApplyForm = () => {
-    const router = useRouter()
 
     const [step, setStep] = React.useState(0)
     const [selectedGender, setSelectedGender] = React.useState<string>("")
@@ -84,7 +82,7 @@ const ApplyForm = () => {
         }
 
         submitOnboardForm(onboardForm).then((statusCode) => {
-                statusCode === 200 ? router.push("/dashboard") : console.error("oh no")
+                statusCode === 200 ? window.open("/login", "_self") : console.error("oh no")
             }
         )
     }

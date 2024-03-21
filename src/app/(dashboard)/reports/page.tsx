@@ -14,7 +14,7 @@ const DashboardPage = () => {
             <form>
                 <ul>
                     <li>
-                        <Input type={'text'} label={"Startup Status"}/>
+                        <Input type={'text'} label={"Employee Count"}/>
                         <Input type={'text'} label={"Equity free investments"}/>
                         <Input type={'text'} label={"Revenue"}/>
                     </li>

@@ -3,10 +3,23 @@
 import styles from './page.module.scss'
 import Input from "@/components/atoms/Input/Input";
 import {FormEvent} from "react";
+import {useRouter} from "next/navigation";
+import {login} from "@/api/userAPI";
 
 const ApplyPage = () => {
-    const handleSubmit = (e: FormEvent) => {
+    const router = useRouter()
+
+    const handleSubmit = async (e: FormEvent<any>) => {
         e.preventDefault()
+
+        if (!e.currentTarget.email.value || !e.currentTarget.password.value)
+            return
+
+        const result = await login(e.currentTarget.email.value, e.currentTarget.password.value)
+
+        if (result) {
+            router.push("/dashboard")
+        }
     }
 
     return (

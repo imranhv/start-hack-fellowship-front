@@ -1,9 +1,10 @@
 import styles from './page.module.scss'
 import {Metadata} from "next";
 import KPICard from "@/components/molecules/KPICard/KPICard";
-import {Line} from 'react-chartjs-2';
 import {ChartOptions} from "chart.js";
 import LineChart from "@/components/organisms/LineChart/LineChart";
+import useUser from "@/hooks/useUser";
+import React from "react";
 
 export const metadata: Metadata = {
     title: 'Home | Start Fellowship Dashboard',
@@ -31,7 +32,6 @@ const DashboardPage = () => {
             },
         }
     };
-
 
     return (
         <main className={styles.main}>
