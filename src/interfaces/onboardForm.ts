@@ -26,12 +26,12 @@ interface UserData {
     motivation_letter: string | null;
     english_test: string | null;
     english_proficiency_lvl: string | null;
-    hear_about_us: string | null;
+    reference: string | null;
     password: string | null;
     confirm_email: string | null;
-    is_consent_given: string | null;
-    are_terms_accepted: string | null;
-    is_agreed_to_rules: string | null;
+    is_consent_given: boolean | null;
+    are_terms_accepted: boolean | null;
+    is_agreed_to_rules: boolean | null;
 }
 
 export interface OnboardForm {
