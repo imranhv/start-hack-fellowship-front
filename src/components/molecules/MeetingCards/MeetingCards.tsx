@@ -54,8 +54,10 @@ const MeetingCards = ({meetings, finished}: MeetingCardsProps) => {
                                 {
                                     !finished ? <span
                                             className={styles.meetingStartIn}>Meeting starting in {Math.floor((new Date(meeting.start_date).getTime() - new Date().getTime()) / (1000 * 60 * 60))} hours</span> :
-                                        <span onClick={() => handleAddInput(meeting.id)}
-                                              className={styles.fillFormBtn}>Please fill the form ✏️</span>
+                                        meeting.notes?.length === 0 ?
+                                            <span onClick={() => handleAddInput(meeting.meeting_id)}
+                                                  className={styles.fillFormBtn}>Please fill the form ✏️</span> :
+                                            <span>Note: {meeting.notes[0].content}</span>
                                 }
                                 <strong>{meeting.attendees.length} Participant(s)</strong>
                                 <span>
