@@ -62,3 +62,15 @@ export async function getReports(startup_id: number) {
         })
         .catch(err => console.log(err))
 }
+
+export async function getAllPartners() {
+    return apiClient.get('/getPartners')
+        .then(response => {
+            if (response) {
+                return response.data
+            }
+            return false
+        })
+        .catch(err => console.log(err))
+}
+

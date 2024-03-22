@@ -4,8 +4,12 @@ import styles from "./Tabs.module.scss";
 import Tab from "@/components/atoms/Tab/Tab";
 import React from "react";
 
-const Tabs = () => {
-    const [selected, setSelected] = React.useState<number>(0)
+interface TabsProps {
+    selected: number,
+    setSelected: (params: any) => void
+}
+
+const Tabs = ({selected, setSelected}: TabsProps) => {
 
     return (
         <div className={styles.tabs}>

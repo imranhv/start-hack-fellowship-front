@@ -59,18 +59,39 @@
       flex-wrap: wrap;
       justify-content: space-between;
     }
+
+    button {
+      @include button;
+      border-color: var(--black);
+      color: var(--black);
+      width: 70%;
+      align-self: flex-end;
+
+      &:hover {
+        background-color: var(--black);
+        color: white;
+      }
+    }
   }
 
-  button {
-    @include button;
-    border-color: var(--black);
-    color: var(--black);
-    width: 70%;
-    align-self: flex-end;
+  form {
+    margin: auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 
-    &:hover {
-      background-color: var(--black);
-      color: white;
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    button {
+      width: 100% !important;
     }
   }
 }
