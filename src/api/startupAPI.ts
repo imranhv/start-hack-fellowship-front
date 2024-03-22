@@ -38,3 +38,15 @@ export async function compareReports(startup_id: number, ranges: number[]) {
         })
         .catch(err => console.log(err))
 }
+
+export async function getKPIData(startup_id: number, kpi_name: string) {
+    return apiClient
+        .post('/startups/getKpiData', {startup_id, kpi_name})
+        .then(response => {
+            if (response) {
+                return response.data
+            }
+            return false
+        })
+        .catch(err => console.log(err))
+}

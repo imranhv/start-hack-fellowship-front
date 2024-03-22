@@ -7,7 +7,7 @@ import {ChartOptions} from "chart.js";
 import LineChart from "@/components/organisms/LineChart/LineChart";
 import useUser from "@/hooks/useUser";
 import React from "react";
-import {compareReports} from "@/api/startupAPI";
+import {compareReports, getKPIData} from "@/api/startupAPI";
 import Spinner from "@/components/organisms/Spinner/Spinner";
 
 // export const metadata: Metadata = {
@@ -18,6 +18,10 @@ import Spinner from "@/components/organisms/Spinner/Spinner";
 const DashboardPage = () => {
     const {user, loading} = useUser({redirectTo: "/login"})
     const [reportData, setReportData] = React.useState<any>()
+    const [graphData1, setGraphData1] = React.useState<any>()
+    const [graphData2, setGraphData2] = React.useState<any>()
+    const [graphData3, setGraphData3] = React.useState<any>()
+    const [graphData4, setGraphData4] = React.useState<any>()
 
     React.useEffect(() => {
         const today = new Date()
@@ -30,6 +34,38 @@ const DashboardPage = () => {
                     setReportData(result)
                 else {
                     setReportData(null)
+                }
+            })
+
+            getKPIData(user.startUpCompanyId, "Employee Count").then(result => {
+                if (result)
+                    setGraphData1(result)
+                else {
+                    setGraphData1(null)
+                }
+            })
+
+            getKPIData(user.startUpCompanyId, "Cash Burn").then(result => {
+                if (result)
+                    setGraphData2(result)
+                else {
+                    setGraphData2(null)
+                }
+            })
+
+            getKPIData(user.startUpCompanyId, "Revenue").then(result => {
+                if (result)
+                    setGraphData3(result)
+                else {
+                    setGraphData3(null)
+                }
+            })
+
+            getKPIData(user.startUpCompanyId, "Monthly Cost").then(result => {
+                if (result)
+                    setGraphData4(result)
+                else {
+                    setGraphData4(null)
                 }
             })
         }
@@ -77,14 +113,6 @@ const DashboardPage = () => {
         ],
     };
 
-    const options: ChartOptions = {
-        scales: {
-            ticks: {
-                beginAtZero: true,
-            },
-        }
-    };
-
     return (
         <main className={styles.main}>
             {loading && <Spinner/>}
@@ -100,7 +128,9 @@ const DashboardPage = () => {
                         <div className={styles.kpi}>
                             {Object.keys(kpis).map((kpiKey, index) => (
                                 // @ts-ignore
-                                <KPICard key={index} label={kpiKey} value={kpis[kpiKey].endValue ?? 0} previousValue={kpis[kpiKey].startValue ?? kpis[kpiKey].endValue ?? 0}/>
+                                <KPICard key={index} label={kpiKey} value={kpis[kpiKey].endValue ?? 0}
+                                    // @ts-ignore
+                                         previousValue={kpis[kpiKey].startValue ?? kpis[kpiKey].endValue ?? 0}/>
                             ))}
                         </div>
                     </section>
@@ -108,8 +138,8 @@ const DashboardPage = () => {
                     <section>
                         <h3>Analytics</h3>
                         <div className={styles.graph}>
-                            {Array(6).fill(0).map((kpi, index) => (
-                                <LineChart key={index}/>
+                            {[graphData1, graphData2, graphData3, graphData4].map((graph, index) => (
+                                <LineChart key={index} data={graph}/>
                             ))}
                         </div>
                     </section>

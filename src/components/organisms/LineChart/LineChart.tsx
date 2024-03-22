@@ -19,28 +19,32 @@ ChartJS.register(
     Tooltip
 );
 
-const LineChart = () => {
+interface LineChartProps {
+    data: any
+}
+
+const LineChart = ({data}: LineChartProps) => {
     return (
         <div className={styles.chart}>
-            <Line
+            {data && <Line
+                options={{
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Custom Chart Title'
+                        }
+                    }
+                }}
                 data={{
-                    labels: [
-                        "2023-01",
-                        "2023-02",
-                        "2023-03",
-                        "2023-04",
-                        "2023-05",
-                        "2023-06",
-                        "2023-07",
-                    ],
+                    labels: data.x,
                     datasets: [
                         {
-                            data: [100, 120, 115, 134, 168, 132, 200],
+                            data: data.y,
                             backgroundColor: "orange",
                         },
                     ],
                 }}
-            />
+            />}
         </div>
     );
 };
