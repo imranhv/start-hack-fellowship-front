@@ -3,8 +3,10 @@
 import styles from './page.module.scss'
 import {Metadata} from "next";
 import Input from "@/components/atoms/Input/Input";
-import {FormEvent} from "react";
-import {sendMonthlyReport} from "@/api/startupAPI";
+import React, {FormEvent} from "react";
+import {getReports, sendMonthlyReport} from "@/api/startupAPI";
+import useUser from "@/hooks/useUser";
+import Spinner from "@/components/organisms/Spinner/Spinner";
 
 // export const metadata: Metadata = {
 //     title: 'Reports | Start Fellowship Dashboard',
@@ -12,6 +14,30 @@ import {sendMonthlyReport} from "@/api/startupAPI";
 // }
 
 const DashboardPage = () => {
+    const {user, loading} = useUser({redirectTo: "/login"})
+    const [dynamicInputs, setDynamicInputs] = React.useState([]); // State to manage dynamic inputs
+
+    React.useEffect(() => {
+        if (user) {
+            getReports(user.startUpCompanyId).then(result => {
+                if (result) {
+                    const kpiNames = result[0].kpis.filter((kpi: any) => kpi.name !== "Employee Count"
+                        && kpi.name !== "Cash Burn"
+                        && kpi.name !== "Revenue"
+                        && kpi.name !== "Monthly Cost").map((kpi: any) => {
+                        return {
+                            label: kpi.name,
+                            name: `${dynamicInputs.length + 1}`, // Generate a unique name for the input
+                            required: true // You can modify this as needed
+                        };
+                    })
+
+                    setDynamicInputs(kpiNames)
+                }
+            })
+
+        }
+    }, [user])
 
     // Get current date
     const currentDate = new Date();
@@ -37,53 +63,94 @@ const DashboardPage = () => {
     const handleSubmit = async (e: FormEvent<any>) => {
         e.preventDefault()
 
-        if (!e.currentTarget.employeeCount.value || !e.currentTarget.cashBurn.value || !e.currentTarget.revenue.value || !e.currentTarget.monthlyCost.value)
+        if (!e.currentTarget["Employee Count"].value || !e.currentTarget["Cash Burn"].value || !e.currentTarget["Revenue"].value || !e.currentTarget["Monthly Cost"].value)
             return
 
         const data = [
             {
                 name: "Employee Count",
-                kpi_value: Number(e.currentTarget.employeeCount.value),
+                kpi_value: Number(e.currentTarget["Employee Count"].value),
                 north_star_metric: true,
             },
             {
                 name: "Cash Burn",
-                kpi_value: Number(e.currentTarget.cashBurn.value),
+                kpi_value: Number(e.currentTarget["Cash Burn"].value),
                 north_star_metric: true,
             },
             {
                 name: "Revenue",
-                kpi_value: Number(e.currentTarget.revenue.value),
+                kpi_value: Number(e.currentTarget["Revenue"].value),
                 north_star_metric: true,
             },
             {
                 name: "Monthly Cost",
-                kpi_value: Number(e.currentTarget.monthlyCost.value),
+                kpi_value: Number(e.currentTarget["Monthly Cost"].value),
                 north_star_metric: true,
             }
         ]
 
-        const result = await sendMonthlyReport(data)
+        const dataFinal = [...data, ...dynamicInputs.map((input: any) => ({
+            name: input.label,
+            kpi_value: Number(e.currentTarget[input.label].value),
+            north_star_metric: false,
+        }))]
+
+        const result = await sendMonthlyReport(dataFinal).then((status) => {
+            if (status === 200) {
+                alert("Your KPI Report is successfully submitted!");
+                window.location.reload();
+            }
+        })
     }
+
+    const handleAddInput = () => {
+        const label = prompt("Enter your desired custom KPI:")
+
+        if (label) {
+            const newInput = {
+                label: label,
+                name: `${dynamicInputs.length + 1}`, // Generate a unique name for the input
+                required: true // You can modify this as needed
+            };
+
+            //@ts-ignore
+            setDynamicInputs(prevInputs => [...prevInputs, newInput]); // Add new input to state
+        }
+    };
 
     return (
         <main className={styles.main}>
             <h1>Track your startup journey</h1>
             <p>Submit your KPI report for the <strong>{`${formattedFirstDay} - ${formattedLastDay}`}</strong> period.
             </p>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <ul>
-                    <li>
-                        <Input type={'text'} label={"Employee Count"} name={"employeeCount"} required/>
-                        <Input type={'text'} label={"Net Cash Burn"} name={"cashBurn"} required/>
-                        <Input type={'text'} label={"Revenue"} name={"revenue"} required/>
-                        <Input type={'text'} label={"Monthly Cost"} name={"monthlyCost"} required/>
-                    </li>
-                </ul>
-                <div className={styles.buttonWrapper}>
-                    <button type='submit'>Submit</button>
-                </div>
-            </form>
+            {loading && <Spinner/>}
+            {user &&
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <ul>
+                        <li>
+                            <Input type={'text'} label={"Employee Count"} name={"Employee Count"} required/>
+                        </li>
+                        <li>
+                            <Input type={'text'} label={"Cash Burn"} name={"Cash Burn"} required/>
+                        </li>
+                        <li>
+                            <Input type={'text'} label={"Revenue"} name={"Revenue"} required/>
+                        </li>
+                        <li>
+                            <Input type={'text'} label={"Monthly Cost"} name={"Monthly Cost"} required/>
+                        </li>
+                        {dynamicInputs.map((input: any) => (
+                            <li key={input.name}>
+                                <Input type={'text'} label={input.label} name={input.label} required={input.required}/>
+                            </li>
+                        ))}
+                    </ul>
+                    <div className={styles.buttonWrapper}>
+                        <button type='button' onClick={handleAddInput}>Add Custom KPI</button>
+                        <button type='submit'>Submit</button>
+                    </div>
+                </form>
+            }
         </main>
     )
 }

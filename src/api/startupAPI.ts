@@ -20,7 +20,7 @@ export async function sendMonthlyReport(data: any) {
         console.log(data)
         const response = await apiClient.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/startups/sendMonthlyReport`, data)
 
-        return response.data;
+        return response.status;
     } catch (e) {
         console.error(`Error: Failed to send KPI report: ${e}`);
         return 500;
@@ -42,6 +42,18 @@ export async function compareReports(startup_id: number, ranges: number[]) {
 export async function getKPIData(startup_id: number, kpi_name: string) {
     return apiClient
         .post('/startups/getKpiData', {startup_id, kpi_name})
+        .then(response => {
+            if (response) {
+                return response.data
+            }
+            return false
+        })
+        .catch(err => console.log(err))
+}
+
+export async function getReports(startup_id: number) {
+    return apiClient
+        .post('/startups/getReports', {startup_id})
         .then(response => {
             if (response) {
                 return response.data
