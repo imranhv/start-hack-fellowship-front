@@ -2,10 +2,10 @@
 
 import React from 'react';
 import styles from "./MeetingCards.module.scss";
-import {Meeting} from "@/interfaces/meetings";
+import {addMeetingNote} from "@/api/meetings";
 
 interface MeetingCardsProps {
-    meetings: Meeting[],
+    meetings: any,
     finished?: boolean
 }
 
@@ -18,37 +18,52 @@ const DAY_TIME_OPTIONS: any = {
 }
 
 const MeetingCards = ({meetings, finished}: MeetingCardsProps) => {
-    const [meetingCardFormOpen, setMeetingCardFormOpen] = React.useState(false)
+    const [note, setNote] = React.useState("")
+    const handleAddInput = (id: number) => {
+        const label = prompt("Enter your notes about the meeting:")
+
+        if (label) {
+            //@ts-ignore
+            setNote(label)
+
+            const response = addMeetingNote(id, label).then(status => {
+                if (status === 200) {
+                    alert("Your meeting note is successfully submitted!");
+                    window.location.reload();
+                }
+            })
+        }
+    };
 
     return (
         <>
             <ul className={styles.meetingCards}>
                 {
-                    meetings.map(meeting => (
+                    meetings.map((meeting: any) => (
                         <li key={meeting.id}>
               <span
                   className={styles.meetingDate}
               >
                 {
-                    new Date(meeting.startTimestamp * 1000)
+                    new Date(meeting.start_date)
                         .toLocaleDateString('en-GB', LONG_DATE_OPTIONS)
                         .replace(/ /g, "\n")
                 }
               </span>
                             <div className={styles.meetingDetails}>
                                 {
-                                    !finished ?
-                                        <span className={styles.meetingStartIn}>Meeting starting in X hours</span> :
-                                        <span onClick={() => setMeetingCardFormOpen(true)}
+                                    !finished ? <span
+                                            className={styles.meetingStartIn}>Meeting starting in {Math.floor((new Date(meeting.start_date).getTime() - new Date().getTime()) / (1000 * 60 * 60))} hours</span> :
+                                        <span onClick={() => handleAddInput(meeting.id)}
                                               className={styles.fillFormBtn}>Please fill the form ✏️</span>
                                 }
-                                <strong>{meeting.partner}</strong>
+                                <strong>{meeting.attendees.length} Participant(s)</strong>
                                 <span>
-                {new Date(meeting.startTimestamp * 1000).toLocaleDateString('en-GB', DAY_TIME_OPTIONS)}
+                {new Date(meeting.start_date).toLocaleDateString('en-GB', DAY_TIME_OPTIONS)}
                                     &nbsp;-&nbsp;
-                                    {new Date(meeting.endTimestamp * 1000).toLocaleDateString('en-GB', DAY_TIME_OPTIONS)}
+                                    {new Date(meeting.end_date).toLocaleDateString('en-GB', DAY_TIME_OPTIONS)}
               </span>
-                                <a href={meeting.meetingUrl} target="_blank">{meeting.meetingUrl}</a>
+                                <a href={meeting.purpose} target="_blank">{meeting.purpose}</a>
                             </div>
                         </li>
                     ))

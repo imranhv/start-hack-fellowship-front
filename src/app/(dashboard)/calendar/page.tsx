@@ -1,98 +1,47 @@
+"use client"
+
 import styles from './page.module.scss'
 import {Metadata} from "next";
 import MeetingCards from "@/components/molecules/MeetingCards/MeetingCards";
-import {Meeting} from "@/interfaces/meetings";
+import {getAllMeetingsOfClient} from "@/api/meetings";
+import React from 'react';
 
-export const metadata: Metadata = {
-    title: 'Calendar | Start Fellowship Dashboard',
-    description: 'Access personalized resources, track your progress, and connect with peers on your fellowship journey.',
-}
-
-const MEETINGS: { upcoming: Meeting[], finished: Meeting[] } = {
-    upcoming: [
-        {
-            startTimestamp: 1710976550,
-            endTimestamp: 1710976558,
-            startup: "TeklifimGelsin",
-            partner: "Metin Salt",
-            meetingUrl: "https://example.com",
-            id: 0,
-            ratingFromStartup: undefined,
-            punctualityFromStartup: undefined,
-            notesFromStartup: undefined,
-            ratingFromPartner: undefined,
-            punctualityFromPartner: undefined,
-            notesFromPartner: undefined,
-        },
-        {
-            startTimestamp: 1710976550,
-            endTimestamp: 1710976558,
-            startup: "TeklifimGelsin",
-            partner: "Metin Salt",
-            meetingUrl: "https://example.com",
-            id: 0,
-            ratingFromStartup: undefined,
-            punctualityFromStartup: undefined,
-            notesFromStartup: undefined,
-            ratingFromPartner: undefined,
-            punctualityFromPartner: undefined,
-            notesFromPartner: undefined,
-        }
-    ],
-    finished: [
-        {
-            startTimestamp: 1710976550,
-            endTimestamp: 1710976558,
-            startup: "TeklifimGelsin",
-            partner: "Metin Salt",
-            meetingUrl: "https://example.com",
-            id: 0,
-            ratingFromStartup: undefined,
-            punctualityFromStartup: undefined,
-            notesFromStartup: undefined,
-            ratingFromPartner: undefined,
-            punctualityFromPartner: undefined,
-            notesFromPartner: undefined,
-        },
-        {
-            startTimestamp: 1710976550,
-            endTimestamp: 1710976558,
-            startup: "TeklifimGelsin",
-            partner: "Metin Salt",
-            meetingUrl: "https://example.com",
-            id: 0,
-            ratingFromStartup: undefined,
-            punctualityFromStartup: undefined,
-            notesFromStartup: undefined,
-            ratingFromPartner: undefined,
-            punctualityFromPartner: undefined,
-            notesFromPartner: undefined,
-        },
-        {
-            startTimestamp: 1710976550,
-            endTimestamp: 1710976558,
-            startup: "TeklifimGelsin",
-            partner: "Metin Salt",
-            meetingUrl: "https://example.com",
-            id: 0,
-            ratingFromStartup: 5,
-            punctualityFromStartup: 4,
-            notesFromStartup: "This was a productive meeting for us",
-            ratingFromPartner: 1,
-            punctualityFromPartner: 3,
-            notesFromPartner: "They were late and did not know anything",
-        }
-    ]
-}
+// export const metadata: Metadata = {
+//     title: 'Calendar | Start Fellowship Dashboard',
+//     description: 'Access personalized resources, track your progress, and connect with peers on your fellowship journey.',
+// }
 
 const CalendarPage = () => {
+    const [meetings, setMeetings] = React.useState<any>([])
+
+    React.useEffect(() => {
+        getAllMeetingsOfClient().then(result => {
+            console.log(result)
+            setMeetings(result)
+        })
+    }, [])
+
+    const MEETINGS = {
+        upcoming: [],
+        finished: []
+    }
+
+    meetings.map((meeting: any) => {
+        if (new Date().getTime() < new Date(meeting.start_date).getTime()) { // @ts-ignore
+            MEETINGS.upcoming.push(meeting)
+        } else {
+            // @ts-ignore
+            MEETINGS.finished.push(meeting)
+        }
+    })
+
     let meetingsNotResponded = 0
 
-    MEETINGS.finished.forEach(meeting => {
-        if (!meeting.ratingFromStartup && !meeting.ratingFromPartner) {
-            meetingsNotResponded++;
-        }
-    });
+    // MEETINGS.finished.forEach(meeting => {
+    //     if (!meeting.ratingFromStartup && !meeting.ratingFromPartner) {
+    //         meetingsNotResponded++;
+    //     }
+    // });
 
     return (
         <main className={styles.main}>
@@ -102,14 +51,14 @@ const CalendarPage = () => {
             </section>
 
             <section className={styles.meetingsSection}>
-                <h2>📅 Upcoming Meetings</h2>
+                <h2>Upcoming Meetings</h2>
                 <MeetingCards meetings={MEETINGS.upcoming}/>
             </section>
             <section className={styles.meetingsSection}>
                 <div>
                     <span>You have not responded to {meetingsNotResponded} meetings</span>
                 </div>
-                <h2>✅ Finished Meetings</h2>
+                <h2>Finished Meetings</h2>
                 <MeetingCards meetings={MEETINGS.finished} finished/>
             </section>
         </main>
